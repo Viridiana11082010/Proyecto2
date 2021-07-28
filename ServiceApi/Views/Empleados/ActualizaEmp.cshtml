@@ -1,0 +1,48 @@
+﻿
+@model Empleados
+@{
+    ViewBag.Title = "ActualizaEmp";
+}
+
+<h2>Actualizar Empleado</h2>
+
+<form method="post" action="@Url.Action("ActualizaEmp","Empleados")">
+    <div class="form-group">
+        <label>Id</label>
+        @Html.TextBoxFor(x => x.id, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+    <div class="form-group">
+        <label>Nombre Completo</label>
+        @Html.TextBoxFor(x => x.Nombre_Completo, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        @Html.TextBoxFor(x => x.Fecha_Nacimiento, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Correo Elétronico</label>
+        @Html.TextBoxFor(x => x.Correo_Eletronico, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Género</label>
+        @Html.TextBoxFor(x => x.Genero, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Teléfono</label>
+        @Html.TextBoxFor(x => x.Telefono, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Celular</label>
+        @Html.TextBoxFor(x => x.Celular, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Fecha de Ingreso</label>
+        @Html.TextBoxFor(x => x.Fecha_Ingreso, new { @class = "form-control" })
+    </div> 
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Enviar" />
+        <a href="@Url.Action("Index","Empleados")">Regresar</a>
+    </div>
+</form>
+
+

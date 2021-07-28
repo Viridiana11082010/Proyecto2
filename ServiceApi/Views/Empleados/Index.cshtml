@@ -1,0 +1,45 @@
+﻿
+@Model SpConsultaEmpleados_Result
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Table Empleados</h2>
+
+<a href="@Url.Action("AgregaEmpl","Empleados")" class="btn btn-primary">Agregar Nuevo</a>
+
+
+<hr />
+<table class="table table-striped border">
+    <thead>
+        <tr class="table-secondary">
+            <td>id</td>
+            <td>Nombre Completo</td>
+            <td>Fecha de Nacimiento</td>
+            <td>Correo Electrónico</td>
+            <td>Género</td>
+            <td>Teléfono</td>
+            <td>Celular</td>
+            <td>Fecha de Ingreso</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Emple in Model)
+        {
+        <tr>
+            <td>@Emple.id</td>
+            <td>@Emple.Nombre_Completo</td>
+            <td>@Emple.Fecha_Nacimiento</td>
+            <td>@Emple.Correo_Eletronico </td>
+            <td>@Emple.Genero</td>
+            <td>@Emple.Telefono</td>
+            <td>@Emple.Celular</td>
+            <td>@Emple.Fecha_Ingreso</td>
+            <td>
+                <a href="@Url.Action("ActualizaEmp","Empleados", new {id =Emple.id})" class="btn btn-primary right">Actualizar</a>
+                <a href="@Url.Action("EliminaEmpl","Empleados", new { id = Emple.id})" class="btn btn-primary right">Eliminar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

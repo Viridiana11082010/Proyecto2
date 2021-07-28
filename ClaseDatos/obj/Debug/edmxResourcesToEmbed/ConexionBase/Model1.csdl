@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaViriModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cat_Departamento">
+    <Key>
+      <PropertyRef Name="IdDep" />
+    </Key>
+    <Property Name="IdDep" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empresa" Relationship="Self.FK__Empresa__IdDep__72C60C4A" FromRole="Cat_Departamento" ToRole="Empresa" />
+  </EntityType>
+  <EntityType Name="Empleados">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre_Completo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Nacimiento" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Correo_Eletronico" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Genero" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Celular" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Ingreso" Type="DateTime" Precision="3" />
+    <Property Name="idEmpresa" Type="Int32" />
+    <NavigationProperty Name="Empresa" Relationship="Self.FK__Empleados__idEmp__71D1E811" FromRole="Empleados" ToRole="Empresa" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="idEmpresa" />
+    </Key>
+    <Property Name="idEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IdDep" Type="Int32" />
+    <NavigationProperty Name="Cat_Departamento" Relationship="Self.FK__Empresa__IdDep__72C60C4A" FromRole="Empresa" ToRole="Cat_Departamento" />
+    <NavigationProperty Name="Empleados" Relationship="Self.FK__Empleados__idEmp__71D1E811" FromRole="Empresa" ToRole="Empleados" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Empresa__IdDep__72C60C4A">
+    <End Role="Cat_Departamento" Type="Self.Cat_Departamento" Multiplicity="0..1" />
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cat_Departamento">
+        <PropertyRef Name="IdDep" />
+      </Principal>
+      <Dependent Role="Empresa">
+        <PropertyRef Name="IdDep" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Empleados__idEmp__71D1E811">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="idEmpresa" />
+      </Principal>
+      <Dependent Role="Empleados">
+        <PropertyRef Name="idEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PruebaViriEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cat_Departamento" EntityType="Self.Cat_Departamento" />
+    <EntitySet Name="Empleados" EntityType="Self.Empleados" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK__Empresa__IdDep__72C60C4A" Association="Self.FK__Empresa__IdDep__72C60C4A">
+      <End Role="Cat_Departamento" EntitySet="Cat_Departamento" />
+      <End Role="Empresa" EntitySet="Empresa" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Empleados__idEmp__71D1E811" Association="Self.FK__Empleados__idEmp__71D1E811">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Empleados" EntitySet="Empleados" />
+    </AssociationSet>
+    <FunctionImport Name="SpConsultaEmpleados" ReturnType="Collection(PruebaViriModel.SpConsultaEmpleados_Result)" />
+  </EntityContainer>
+  <ComplexType Name="SpConsultaEmpleados_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="Nombre_Completo" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="Fecha_Nacimiento" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="Correo_Eletronico" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="Genero" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="Telefono" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="Celular" Nullable="true" MaxLength="250" />
+    <Property Type="DateTime" Name="Fecha_Ingreso" Nullable="true" Precision="23" />
+  </ComplexType>
+</Schema>

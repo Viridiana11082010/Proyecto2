@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PruebaViriModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cat_Departamento">
+          <Key>
+            <PropertyRef Name="IdDep" />
+          </Key>
+          <Property Name="IdDep" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Completo" Type="varchar" MaxLength="250" />
+          <Property Name="Fecha_Nacimiento" Type="varchar" MaxLength="250" />
+          <Property Name="Correo_Eletronico" Type="varchar" MaxLength="250" />
+          <Property Name="Genero" Type="varchar" MaxLength="250" />
+          <Property Name="Telefono" Type="varchar" MaxLength="250" />
+          <Property Name="Celular" Type="varchar" MaxLength="250" />
+          <Property Name="Fecha_Ingreso" Type="datetime" />
+          <Property Name="idEmpresa" Type="int" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+          </Key>
+          <Property Name="idEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" />
+          <Property Name="IdDep" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Empleados__idEmp__71D1E811">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empresa__IdDep__72C60C4A">
+          <End Role="Cat_Departamento" Type="Self.Cat_Departamento" Multiplicity="0..1" />
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cat_Departamento">
+              <PropertyRef Name="IdDep" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="IdDep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SpConsultaEmpleados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="PruebaViriModelStoreContainer">
+          <EntitySet Name="Cat_Departamento" EntityType="Self.Cat_Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Empleados__idEmp__71D1E811" Association="Self.FK__Empleados__idEmp__71D1E811">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empresa__IdDep__72C60C4A" Association="Self.FK__Empresa__IdDep__72C60C4A">
+            <End Role="Cat_Departamento" EntitySet="Cat_Departamento" />
+            <End Role="Empresa" EntitySet="Empresa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PruebaViriModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cat_Departamento">
+          <Key>
+            <PropertyRef Name="IdDep" />
+          </Key>
+          <Property Name="IdDep" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK__Empresa__IdDep__72C60C4A" FromRole="Cat_Departamento" ToRole="Empresa" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Completo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Nacimiento" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Correo_Eletronico" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Genero" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Ingreso" Type="DateTime" Precision="3" />
+          <Property Name="idEmpresa" Type="Int32" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK__Empleados__idEmp__71D1E811" FromRole="Empleados" ToRole="Empresa" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+          </Key>
+          <Property Name="idEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdDep" Type="Int32" />
+          <NavigationProperty Name="Cat_Departamento" Relationship="Self.FK__Empresa__IdDep__72C60C4A" FromRole="Empresa" ToRole="Cat_Departamento" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK__Empleados__idEmp__71D1E811" FromRole="Empresa" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Empresa__IdDep__72C60C4A">
+          <End Role="Cat_Departamento" Type="Self.Cat_Departamento" Multiplicity="0..1" />
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cat_Departamento">
+              <PropertyRef Name="IdDep" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="IdDep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empleados__idEmp__71D1E811">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PruebaViriEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cat_Departamento" EntityType="Self.Cat_Departamento" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK__Empresa__IdDep__72C60C4A" Association="Self.FK__Empresa__IdDep__72C60C4A">
+            <End Role="Cat_Departamento" EntitySet="Cat_Departamento" />
+            <End Role="Empresa" EntitySet="Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleados__idEmp__71D1E811" Association="Self.FK__Empleados__idEmp__71D1E811">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <FunctionImport Name="SpConsultaEmpleados" ReturnType="Collection(PruebaViriModel.SpConsultaEmpleados_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SpConsultaEmpleados_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Nombre_Completo" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Fecha_Nacimiento" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Correo_Eletronico" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Genero" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Celular" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="Fecha_Ingreso" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PruebaViriModelStoreContainer" CdmEntityContainer="PruebaViriEntities1">
+          <EntitySetMapping Name="Cat_Departamento">
+            <EntityTypeMapping TypeName="PruebaViriModel.Cat_Departamento">
+              <MappingFragment StoreEntitySet="Cat_Departamento">
+                <ScalarProperty Name="IdDep" ColumnName="IdDep" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="PruebaViriModel.Empleados">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre_Completo" ColumnName="Nombre_Completo" />
+                <ScalarProperty Name="Fecha_Nacimiento" ColumnName="Fecha_Nacimiento" />
+                <ScalarProperty Name="Correo_Eletronico" ColumnName="Correo_Eletronico" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Fecha_Ingreso" ColumnName="Fecha_Ingreso" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="PruebaViriModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdDep" ColumnName="IdDep" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PruebaViriModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SpConsultaEmpleados" FunctionName="PruebaViriModel.Store.SpConsultaEmpleados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaViriModel.SpConsultaEmpleados_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre_Completo" ColumnName="Nombre_Completo" />
+                <ScalarProperty Name="Fecha_Nacimiento" ColumnName="Fecha_Nacimiento" />
+                <ScalarProperty Name="Correo_Eletronico" ColumnName="Correo_Eletronico" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Fecha_Ingreso" ColumnName="Fecha_Ingreso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
